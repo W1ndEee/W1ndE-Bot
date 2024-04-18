@@ -20,8 +20,8 @@ module.exports = async (client, message) => {
         if (message.content === 'hello <@' + bot_id + '>') {
             message.reply(`Hey! <@${message.author.id}>`);
             //this works, change the channel to the required one.
-            client.channels.cache.get('1229976215134404735').send('beep boop');
-            message.channel.send('Beep boop');
+            //client.channels.cache.get('1229976215134404735').send('beep boop');
+            //message.channel.send('Beep boop');
         }
     }
     catch (error) {

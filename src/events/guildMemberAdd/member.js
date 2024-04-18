@@ -1,5 +1,5 @@
 const { Client, GuildMember, PermissionFlagsBits } = require('discord.js');
-const {bot_id} = require("../../../config.json");
+const {autorole_role, welcome_message_channel} = require("../../../config.json");
 
 /**
  * 
@@ -12,9 +12,9 @@ module.exports = async (client, member) => {
         let guild = member.guild;
         if (!guild) return;
 
-        await member.roles.add('1230409603221819473');
+        await member.roles.add(autorole_role);
 
-        client.channels.cache.get('1229976215134404735').send(`Hey! <@${member.id}>`);
+        client.channels.cache.get(welcome_message_channel).send(`Hey! <@${member.id}>`);
     }
     catch (e) {
         console.log(`There was an error running this command: ${e}`);

@@ -1,8 +1,33 @@
+const { Client, Interaction } = require('discord.js');
 const {devs, testserver} = require('../../../config.json');
 const getLocalCommands = require('../../utils/getLocalCommands');
 
+/**
+ * 
+ * @param {Client} client 
+ * @param {Interaction} interaction 
+ * @returns 
+ */
+
+
 module.exports = async (client, interaction) => {
-    if (!interaction.isChatInputCommand()) return;
+    if (!interaction.isChatInputCommand()) {
+        if (interaction.isButton()) {
+            try {
+                const localCommands = getLocalCommands();
+
+                const commandObject = localCommands.find((cmd) => cmd.name === interaction.commandName);
+
+                if (!commandObject) return;
+
+                await commandObject.callback(client, interaction);
+                return;
+            }
+            catch (e) {
+                console.log(e);
+            }
+        }
+    }
 
 
     const localCommands = getLocalCommands();

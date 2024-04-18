@@ -41,6 +41,11 @@ module.exports = async (client) => {
           continue;
         }
 
+        if (localCommand.ignore) {
+          console.log('Skipping claimrole as it is not a slash command.');
+          continue;
+        }
+
         await applicationCommands.create({
           name,
           description,
