@@ -12,6 +12,7 @@ const client = new Client({
 });
 
 eventHandler(client);
+
 /*
 client.on('ready', (c) => {
     console.log(`${c.user.tag} is online.`);
@@ -63,6 +64,23 @@ client.on('interactionCreate', (interaction) => {
 
         interaction.reply({embeds: [embed]});
     }
+});
+
+client.on('messageCreate', (message) => {
+    console.log(message.content);
+
+    if (message.author.bot) {
+        return;
+    }
+
+    //To @ Someone, use <@${message.author.id}>, to @everyone just use @everyone. To @ a role, use <@&${id(for the role)}>
+    if (message.content === 'hello <@' + bot_id + '>') {
+        message.reply(`Hey! <@${message.author.id}>`);
+    }
+});
+
+client.on('guildMemberAdd', (newmember) => {
+    console.log(newmember.displayName);
 });
 */
 client.login(token);
