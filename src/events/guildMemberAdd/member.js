@@ -14,7 +14,7 @@ module.exports = async (client, member) => {
 
         await member.roles.add(autorole_role);
 
-        client.channels.cache.get(welcome_message_channel).send(`Hey! <@${member.id}>`);
+        client.channels.cache.get(welcome_message_channel).send(`Welcome to ${member.guild.name} <@${member.id}>! We now have **${member.guild.memberCount}** members!`);
     }
     catch (e) {
         console.log(`There was an error running this command: ${e}`);

@@ -15,6 +15,7 @@ module.exports = {
 
     name: 'welcome-message',
     description: 'Edit the welcome message that is shown when a user joins the server',
+    devOnly: true,
     options: [
         {
             name: 'message',
