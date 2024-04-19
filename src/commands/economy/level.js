@@ -1,4 +1,6 @@
-const { Client, Interaction, ApplicationCommandOptionType } = require('discord.js');
+const {Client, Events, GatewayIntentBits, IntentsBitField, EmbedBuilder, ActivityType, ApplicationCommandOptionType} = require("discord.js");
+const canvacord = require('canvacord');
+const calculateLevelXp = require('../../utils/calculateLevelXp');
 const Level = require('../../models/Level');
 
 
@@ -48,7 +50,60 @@ module.exports = {
 
         let currentRank = allLevels.findIndex((lvl) => lvl.userId === targetUserId) + 1;
 
-        
+        let color = 'Blue';
+
+        if (targetUserObj.presence.status === 'online') {
+            color = 'Green';
+        }
+
+        if (targetUserObj.presence.status === 'idle') {
+            color = 'Yellow';
+        }
+
+        if (targetUserObj.presence.status === 'offline') {
+            color = 'White';
+        }
+
+        if (targetUserObj.presence.status === 'dnd') {
+            color = 'Red';
+        }
+
+        const embed = new EmbedBuilder()
+        .setTitle(`${targetUserObj.user.displayName}'s Level`)
+        .setDescription(`Current Rank: ${currentRank}`)
+        .setColor(color)
+        .addFields([
+            {
+                name: 'Current Level and XP:',
+                value: `**Level:** ${fetchedLevel.level}. **XP:** ${fetchedLevel.xp}`,
+                inline: true,
+            },
+            {
+                name: `Next level (${fetchedLevel.level + 1}):`,
+                value: `**At:** ${calculateLevelXp(fetchedLevel.level)} XP. **Remaining:** ${calculateLevelXp(fetchedLevel.level) - fetchedLevel.xp} XP`,
+                inline: true,
+            },
+        ])
+        .setThumbnail(targetUserObj.user.displayAvatarURL({ size: 256 }))
+        .setFooter({
+            text: 'By W1ndE Bot',
+        });
+
+        interaction.editReply({embeds: [embed]});
+
+        /*
+        const rank = new canvacord.RankCardBuilder()
+            .setAvatar(targetUserObj.user.displayAvatarURL({ size: 256 }))
+            .setRank(currentRank)
+            .setLevel(fetchedLevel.level)
+            .setCurrentXP(fetchedLevel.xp)
+            .setRequiredXP(calculateLevelXp(fetchedLevel.level))
+            .setStatus(targetUserObj.presence.status)
+            .setUsername(targetUserObj.user.username);
+
+        const data = await rank.build();
+        const attachment = new AttachmentBuilder(data);
+        interaction.editReply({ files: [attachment] }); */
     },
     
     name: 'level',
