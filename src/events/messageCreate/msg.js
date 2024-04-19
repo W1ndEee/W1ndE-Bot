@@ -1,5 +1,5 @@
 const { Client, Message } = require('discord.js');
-const {bot_id} = require("../../../config.json");
+const {bot_id, creator_id} = require("../../../config.json");
 const calculateLevelXp = require('../../utils/calculateLevelXp');
 const Level = require('../../models/Level');
 const cooldowns = new Set();
@@ -32,11 +32,23 @@ module.exports = async (client, message) => {
         }
 
         //To @ Someone, use <@${message.author.id}>, to @everyone just use @everyone. To @ a role, use <@&${id(for the role)}>
-        if (message.content === 'hello <@' + bot_id + '>') {
+        if (message.content === 'Hello <@' + bot_id + '>') {
             message.reply(`Hey! <@${message.author.id}>`);
             //this works, change the channel to the required one.
             //client.channels.cache.get('1229976215134404735').send('beep boop');
             //message.channel.send('Beep boop');
+        }
+
+        if (message.content === 'Introduce yourself <@' + bot_id + '>') {
+            message.channel.send(`You really put me on the spot there hahah`);
+            message.channel.send(`Hey everyone! I am a bot created by <@${creator_id}>!`);
+            message.channel.send('I have some simple moderation commands like `/ban`, `/kick` and `/timeout`. But you have to be a mod to use them :(');
+            message.channel.send('I can also automatically welcome new people to the server and give them roles!');
+            message.channel.send('If you wanna check out what I can do try using `/help`');
+        }
+
+        if (message.content === 'All right thank you very much <@' + bot_id + '>') {
+            message.channel.send('No worries! :)');
         }
 
         const level = await Level.findOne(query);
