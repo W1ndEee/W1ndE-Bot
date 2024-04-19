@@ -34,7 +34,7 @@ module.exports = {
         }
         else {
             interaction.reply(
-                '`/ban`: Bans the target user. The target user is decided via the target-user field. A reason field for the reason behind the ban is optionally included.\n\n`/kick`: Kicks the target user. The target user is decided via the target-user field. A reason field for the reason behind the kick is optionally included.\n\n`/timeout`: Times out the target user. The target user is decided via the target-user field. A reason field for the timeout behind the kick is optionally included.\n\n`/timeout`: Displays the client ping and the websocket ping.\n\n`/help`: Hey, that is me!'
+                '`/ban`: Bans the target user. The target user is decided via the target-user field. A reason field for the reason behind the ban is optionally included.\n\n`/kick`: Kicks the target user. The target user is decided via the target-user field. A reason field for the reason behind the kick is optionally included.\n\n`/timeout`: Times out the target user. The target user is decided via the target-user field. A reason field for the timeout behind the kick is optionally included.\n\n`/timeout`: Displays the client ping and the websocket ping.\n\n`/help`: Hey, that is me!\n\n`/welcome-message`: Creates a welcome message upon user join.\nPlaceholders:\n{GUILD_NAME}: Server Name.\n{MENTION}: Mentions the new user.\n{COUNT}: The total number of members.\n\n`/autorole`: Automatically assigns a role to newly joined users.'
             );
         }
     },

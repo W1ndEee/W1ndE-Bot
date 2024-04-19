@@ -69,23 +69,22 @@ module.exports = {
 
         const embed = new EmbedBuilder()
         .setTitle(`${targetUserObj.user.displayName}'s Level`)
-        .setDescription(`Current Rank: ${currentRank}`)
+        //.setDescription(`Current Rank: ${currentRank}`)
         .setColor(color)
         .addFields([
             {
                 name: 'Current Level and XP:',
-                value: `**Level:** ${fetchedLevel.level}. **XP:** ${fetchedLevel.xp}`,
-                inline: true,
+                value: `**Level:** ${fetchedLevel.level}\n**XP:** ${fetchedLevel.xp}`,
             },
             {
                 name: `Next level (${fetchedLevel.level + 1}):`,
-                value: `**At:** ${calculateLevelXp(fetchedLevel.level)} XP. **Remaining:** ${calculateLevelXp(fetchedLevel.level) - fetchedLevel.xp} XP`,
-                inline: true,
+                value: `**Required:** ${calculateLevelXp(fetchedLevel.level)} XP\n**Remaining:** ${calculateLevelXp(fetchedLevel.level) - fetchedLevel.xp} XP`,
             },
         ])
         .setThumbnail(targetUserObj.user.displayAvatarURL({ size: 256 }))
         .setFooter({
             text: 'By W1ndE Bot',
+            iconURL: interaction.client.user.displayAvatarURL(),
         });
 
         interaction.editReply({embeds: [embed]});
