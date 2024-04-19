@@ -8,7 +8,7 @@ module.exports = (exceptions = []) => {
         path.join(__dirname, '..', 'commands'),
         true
     )
-
+    
     for (const commandCategory of commandCategories) {
         const commandFiles = getAllFiles(commandCategory);
 

@@ -10,7 +10,7 @@ module.exports = async (client) => {
       client,
       testServer
     );
-
+    
     for (const localCommand of localCommands) {
       const { name, description, options } = localCommand;
 

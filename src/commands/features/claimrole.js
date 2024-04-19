@@ -1,4 +1,4 @@
-const { Client, Interaction, Events, GatewayIntentBits, IntentsBitField, ApplicationCommandOptionType } = require('discord.js');
+const { Client, Interaction } = require('discord.js');
 
 module.exports = {
     /**
