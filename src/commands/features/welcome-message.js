@@ -9,6 +9,8 @@ module.exports = {
 
     callback: async (client, interaction) => {
         const message = interaction.options.get('message').value;
+        const channel = interaction.options.get('channel').value;
+
 
         
     },
@@ -21,6 +23,12 @@ module.exports = {
             name: 'message',
             description: 'The message that is displayed',
             type: ApplicationCommandOptionType.String,
+            required: true,
+        },
+        {
+            name: 'channel',
+            description: 'The channel that you want the message to display in',
+            type: ApplicationCommandOptionType.Channel,
             required: true,
         }
     ]

@@ -1,6 +1,7 @@
 const {Client, Events, GatewayIntentBits, IntentsBitField, EmbedBuilder, ActivityType} = require("discord.js");
-const {token, guild_id, bot_id} = require("../config.json");
+const {testbot_token, guild_id, bot_id, MONGODB_URI} = require("../config.json");
 const eventHandler = require("./handlers/eventHandler");
+const mongoose = require('mongoose');
 
 const client = new Client({
     intents: [
@@ -11,7 +12,22 @@ const client = new Client({
     ],
 });
 
-eventHandler(client);
+(async () => {
+    try {
+        mongoose.set('strictQuery', false);
+        await mongoose.connect(MONGODB_URI);
+        console.log('Connected to DB');
+    
+        eventHandler(client);
+
+        client.login(testbot_token);
+    }
+    catch (e) {
+        console.log(e);
+    }
+
+})();
+
 
 /*
 client.on('ready', (c) => {
@@ -83,4 +99,4 @@ client.on('guildMemberAdd', (newmember) => {
     console.log(newmember.displayName);
 });
 */
-client.login(token);
+
