@@ -1,18 +1,17 @@
 const { Schema, model } = require('mongoose');
 
-const welcomeSchema = new Schema({
+const twitchSchema = new Schema({
     guildId: {
         type: String,
         required: true,
     },
-    wchannel: {
+    tchannel: {
         type: String,
         required: true,
     },
-    wmessage: {
+    schannel: {
         type: String,
         required: true,
-        default: 'Welcome to ${member.guild.name} <@${member.id}>! We now have **${member.guild.memberCount}** members!',
     },
     enabled: {
         type: Boolean,
@@ -21,4 +20,4 @@ const welcomeSchema = new Schema({
     },
 });
 
-module.exports = model('Welcome', welcomeSchema);
+module.exports = model('Twitch', twitchSchema);

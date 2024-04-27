@@ -1,4 +1,4 @@
-const { Client, Interaction, ApplicationCommandOptionType } = require('discord.js');
+const { Client, Interaction, ApplicationCommandOptionType, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle} = require('discord.js');
 const TwitchApi = require('node-twitch').default;
 const { twtichclient_id, twitchclient_secret } = require('../../../config.json');
 
@@ -34,24 +34,70 @@ module.exports = {
             }
         }
 
+        function iso(isoTimestamp) {
+            const unixTimestamp = Math.floor(new Date(isoTimestamp).getTime() / 1000);
+            return `<t:${unixTimestamp}:R>`;
+          }
+
         await interaction.deferReply();
 
         async function getStream() {
             try {
+
                 const streams = await twitch.getStreams({channel: uchannel});
                 const stream = streams.data[0];
-                console.log(stream);
-                if (isEmpty(stream)) {
-                    console.log('Offline.');
-                    const users = await twitch.getUsers(uchannel);
-                    const user = users.data[0];
-                    await interaction.editReply(`${uchannel} is currently offline.
-                    ${URLreplace(user.profile_image_url)}`);
+
+                const users = await twitch.getUsers(uchannel);
+                const user = users.data[0];
+
+                if (!isEmpty(stream)) {
+
+                    const twitchembed = new EmbedBuilder()
+                    .setColor('DarkPurple')
+                    .setAuthor({
+                        name: `${user.display_name} is now live!`,
+                        iconURL: user.profile_image_url,
+                    })
+                    .setTitle(`${stream.title}`)
+                    .setURL(`https://twitch.tv/${stream.user_login}`)
+                    .setImage(URLreplace(stream.thumbnail_url))
+                    .addFields([
+                        {
+                            name: '**Live since**',
+                            value: `${iso(stream.started_at)}`,
+                            inline: true,
+                        },
+                        {
+                            name: '**Playing**',
+                            value: stream.game_name,
+                            inline: true,
+                        }
+                    ])
+                    .setThumbnail(user.profile_image_url)
+                    .setFooter({
+                        text: 'Live notifications by W1ndE bot',
+                        iconURL: interaction.client.user.displayAvatarURL(),
+                    });
+
+                    const row = new ActionRowBuilder();
+
+                    row.components.push(
+                        new ButtonBuilder()
+                        .setURL(`https://twitch.tv/${stream.user_login}`)
+                        .setLabel('📹 Watch now!')
+                        .setStyle(ButtonStyle.Link)
+                    );
+
+                    await interaction.editReply({
+                        embeds: [twitchembed],
+                        components: [row],
+                    });
+
+                    //await interaction.editReply(`${stream.user_name} is currently live at https://twitch.tv/${stream.user_login} !\n${URLreplace(stream.thumbnail_url)}`);
                     return;
                 }
                 else {
-                    await interaction.editReply(`${stream.user_name} is currently live at https://twitch.tv/${stream.user_login} !\n
-                    ${URLreplace(stream.thumbnail_url)}`);
+                    await interaction.editReply(`${uchannel} is currently offline.\n${URLreplace(user.profile_image_url)}`);
                     return;
                 }
             }
