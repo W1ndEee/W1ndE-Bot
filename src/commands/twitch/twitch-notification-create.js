@@ -1,7 +1,7 @@
 const { Client, Interaction, ApplicationCommandOptionType } = require('discord.js');
 const Twitch = require('../../models/Twitch');
 const TwitchApi = require('node-twitch').default;
-const { twtichclient_id, twitchclient_secret } = require('../../../config.json');
+const { twtichclient_id, twitchclient_secret } = require('../../../cfg.json');
 
 
 module.exports = {

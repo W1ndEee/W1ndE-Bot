@@ -1,5 +1,5 @@
 const {REST, Routes} = require('discord.js');
-const {testbot_token, guild_id, bot_id} = require("./config.json");
+const {testbot_token, guild_id, bot_id} = require("./cfg.json");
 
 const rest = new REST({version: '10'}).setToken(testbot_token);
 

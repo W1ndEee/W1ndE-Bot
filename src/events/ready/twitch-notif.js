@@ -1,6 +1,6 @@
 const { Client, Interaction, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Guild} = require('discord.js');
 const TwitchApi = require('node-twitch').default;
-const { twtichclient_id, twitchclient_secret } = require('../../../config.json');
+const { twtichclient_id, twitchclient_secret } = require('../../../cfg.json');
 const Twitch = require('../../models/Twitch');
 
 /**

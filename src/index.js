@@ -1,5 +1,5 @@
 const {Client, IntentsBitField} = require("discord.js");
-const {testbot_token, MONGODB_URI} = require("../config.json");
+const {testbot_token, MONGODB_URI} = require("../cfg.json");
 const eventHandler = require("./handlers/eventHandler");
 const mongoose = require('mongoose');
 
