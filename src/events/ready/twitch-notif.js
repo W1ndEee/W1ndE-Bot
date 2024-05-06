@@ -42,7 +42,7 @@ module.exports = async (client) => {
             guildId: guild.id,
         }
 
-        let foundlive = false;
+        let lastStreamID = 0;
 
         async function checklive() {
             try {
@@ -60,56 +60,59 @@ module.exports = async (client) => {
                     const user = users.data[0];
         
                     if (!isEmpty(stream)) {
-        
-                        const twitchembed = new EmbedBuilder()
-                        .setColor('DarkPurple')
-                        .setAuthor({
-                            name: `${user.display_name} is now live!`,
-                            iconURL: user.profile_image_url,
-                        })
-                        .setTitle(`${stream.title}`)
-                        .setURL(`https://twitch.tv/${stream.user_login}`)
-                        .setImage(URLreplace(stream.thumbnail_url))
-                        .addFields([
-                            {
-                                name: '**Live since**',
-                                value: `${iso(stream.started_at)}`,
-                                inline: true,
-                            },
-                            {
-                                name: '**Playing**',
-                                value: stream.game_name,
-                                inline: true,
-                            }
-                        ])
-                        .setThumbnail(user.profile_image_url)
-                        .setFooter({
-                            text: 'Live notifications by W1ndE bot',
-                            iconURL: client.user.displayAvatarURL(),
-                        });
-        
-                        const row = new ActionRowBuilder();
-        
-                        row.components.push(
-                            new ButtonBuilder()
+                        if (stream.id != lastStreamID) {
+                            const twitchembed = new EmbedBuilder()
+                            .setColor('DarkPurple')
+                            .setAuthor({
+                                name: `${user.display_name} is now live!`,
+                                iconURL: user.profile_image_url,
+                            })
+                            .setTitle(`${stream.title}`)
                             .setURL(`https://twitch.tv/${stream.user_login}`)
-                            .setLabel('📹 Watch now!')
-                            .setStyle(ButtonStyle.Link)
-                        );
-        
-                        await 
-                        await channel.send({
-                            embeds: [twitchembed],
-                            components: [row],
-                        });
-        
-                        //await interaction.editReply(`${stream.user_name} is currently live at https://twitch.tv/${stream.user_login} !\n${URLreplace(stream.thumbnail_url)}`);
-                        foundlive = true;
-                        return;
+                            .setImage(URLreplace(stream.thumbnail_url))
+                            .addFields([
+                                {
+                                    name: '**Live since**',
+                                    value: `${iso(stream.started_at)}`,
+                                    inline: true,
+                                },
+                                {
+                                    name: '**Playing**',
+                                    value: stream.game_name,
+                                    inline: true,
+                                }
+                            ])
+                            .setThumbnail(user.profile_image_url)
+                            .setFooter({
+                                text: 'Live notifications by W1ndE bot',
+                                iconURL: client.user.displayAvatarURL(),
+                            });
+            
+                            const row = new ActionRowBuilder();
+            
+                            row.components.push(
+                                new ButtonBuilder()
+                                .setURL(`https://twitch.tv/${stream.user_login}`)
+                                .setLabel('📹 Watch now!')
+                                .setStyle(ButtonStyle.Link)
+                            );
+            
+                            await 
+                            await channel.send({
+                                embeds: [twitchembed],
+                                components: [row],
+                            });
+            
+                            //await interaction.editReply(`${stream.user_name} is currently live at https://twitch.tv/${stream.user_login} !\n${URLreplace(stream.thumbnail_url)}`);
+                            //foundlive = true;
+                            lastStreamID = stream.id;
+                        }
+
+                        
                     }
                     else {
                         await channel.send(`${ttv.tchannel} is currently offline.\n${URLreplace(user.profile_image_url)}`);
-                        return;
+                        lastStreamID = 0;
                     } 
                 }
             }
@@ -118,9 +121,7 @@ module.exports = async (client) => {
                 return;
             }
             finally {
-                if (!foundlive) {
-                    setTimeout(checklive, 10000);
-                }
+                setTimeout(checklive, 30000);
             }
         }
 
