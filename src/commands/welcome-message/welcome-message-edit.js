@@ -85,5 +85,5 @@ module.exports = {
             type: ApplicationCommandOptionType.Channel,
         }
     ],
-    permissionsRequired: [PermissionFlagsBits.Administrator]
+    permissionsRequired: [PermissionFlagsBits.BanMembers]
 }

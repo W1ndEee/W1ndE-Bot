@@ -41,5 +41,5 @@ module.exports = {
 
     name: 'welcome-message-disable',
     description: 'Disable the welcome message.',
-    permissionsRequired: [PermissionFlagsBits.Administrator]
+    permissionsRequired: [PermissionFlagsBits.BanMembers]
 }
