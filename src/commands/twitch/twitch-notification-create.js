@@ -1,4 +1,4 @@
-const { Client, Interaction, ApplicationCommandOptionType } = require('discord.js');
+const { Client, Interaction, ApplicationCommandOptionType, PermissionFlagsBits } = require('discord.js');
 const Twitch = require('../../models/Twitch');
 const TwitchApi = require('node-twitch').default;
 const { twtichclient_id, twitchclient_secret } = require('../../../cfg.json');
@@ -90,7 +90,6 @@ module.exports = {
             type: ApplicationCommandOptionType.Channel,
             required: true
         }
-    ]
-    // devOnly: Boolean,
-    // deleted: Boolean,
+    ],
+    permissionsRequired: [PermissionFlagsBits.BanMembers]
 }

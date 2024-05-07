@@ -1,4 +1,4 @@
-const {Client, Events, GatewayIntentBits, IntentsBitField, EmbedBuilder, ActivityType, ActionRowBuilder, ButtonBuilder, ButtonStyle} = require("discord.js");
+const {Client, IntentsBitField, ActionRowBuilder, ButtonBuilder, ButtonStyle} = require("discord.js");
 const {token, guild_id, bot_id} = require("./cfg.json");
 const eventHandler = require("./src/handlers/eventHandler");
 

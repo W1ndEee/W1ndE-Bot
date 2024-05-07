@@ -41,5 +41,5 @@ module.exports = {
 
     name: 'welcome-message-enable',
     description: 'Enable the welcome message.',
-    permissionsRequired: [PermissionFlagsBits.Administrator]
+    permissionsRequired: [PermissionFlagsBits.BanMembers]
 }

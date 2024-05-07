@@ -1,5 +1,9 @@
-const {Client, Events, GatewayIntentBits, IntentsBitField, EmbedBuilder, ActivityType} = require("discord.js");
+const {Client, ActivityType} = require("discord.js");
 
+/**
+ * 
+ * @param {Client} client 
+ */
 module.exports = (client) => {
     console.log(`${client.user.tag} is online.`)
 

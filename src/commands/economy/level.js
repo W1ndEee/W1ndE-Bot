@@ -1,4 +1,4 @@
-const {Client, Events, GatewayIntentBits, IntentsBitField, EmbedBuilder, ActivityType, ApplicationCommandOptionType} = require("discord.js");
+const {Client, EmbedBuilder, ApplicationCommandOptionType} = require("discord.js");
 const calculateLevelXp = require('../../utils/calculateLevelXp');
 const Level = require('../../models/Level');
 
@@ -88,20 +88,6 @@ module.exports = {
         });
 
         interaction.editReply({embeds: [embed]});
-
-        /*
-        const rank = new canvacord.RankCardBuilder()
-            .setAvatar(targetUserObj.user.displayAvatarURL({ size: 256 }))
-            .setRank(currentRank)
-            .setLevel(fetchedLevel.level)
-            .setCurrentXP(fetchedLevel.xp)
-            .setRequiredXP(calculateLevelXp(fetchedLevel.level))
-            .setStatus(targetUserObj.presence.status)
-            .setUsername(targetUserObj.user.username);
-
-        const data = await rank.build();
-        const attachment = new AttachmentBuilder(data);
-        interaction.editReply({ files: [attachment] }); */
     },
     
     name: 'level',

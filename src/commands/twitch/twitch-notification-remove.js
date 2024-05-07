@@ -1,7 +1,5 @@
-const { Client, Interaction, ApplicationCommandOptionType } = require('discord.js');
+const { Client, Interaction, PermissionFlagsBits } = require('discord.js');
 const Twitch = require('../../models/Twitch');
-const TwitchApi = require('node-twitch').default;
-const { twtichclient_id, twitchclient_secret } = require('../../../cfg.json');
 
 
 module.exports = {
@@ -16,11 +14,6 @@ module.exports = {
             interaction.reply('You can only run this command inside a server.');
             return;
         }
-
-        const twitch = new TwitchApi({
-            client_id: twtichclient_id,
-            client_secret: twitchclient_secret
-        });
 
         try {
             await interaction.deferReply();
@@ -47,13 +40,9 @@ module.exports = {
         catch (e) {
             console.log(e);
         }
-
-
-
     },
 
     name: 'twitch-notification-remove',
     description: 'Remove the linked twitch channel for Twitch Notifications',
-    // devOnly: Boolean,
-    // deleted: Boolean,
+    permissionsRequired: [PermissionFlagsBits.BanMembers]
 }

@@ -1,5 +1,5 @@
 const {Client, IntentsBitField} = require("discord.js");
-const {testbot_token, MONGODB_URI} = require("../cfg.json");
+const {token, MONGODB_URI} = require("../cfg.json");
 const eventHandler = require("./handlers/eventHandler");
 const mongoose = require('mongoose');
 
@@ -21,7 +21,7 @@ const client = new Client({
     
         eventHandler(client);
 
-        client.login(testbot_token);
+        client.login(token);
     }
     catch (e) {
         console.log(e);

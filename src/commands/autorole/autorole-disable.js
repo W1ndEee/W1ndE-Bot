@@ -47,5 +47,6 @@ module.exports = {
 
     name: 'autorole-disable',
     description: 'Disable AutoRole',
-    permissionsRequired: [PermissionFlagsBits.ManageRoles]
+    permissionsRequired: [PermissionFlagsBits.ManageRoles],
+    botPermissions: [PermissionFlagsBits.ManageRoles]
 }
