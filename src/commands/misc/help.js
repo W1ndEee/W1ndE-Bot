@@ -49,5 +49,5 @@ module.exports = {
             type: ApplicationCommandOptionType.String,
         }
     ],
-    // deleted: Boolean,
+    deleted: true,
 }
