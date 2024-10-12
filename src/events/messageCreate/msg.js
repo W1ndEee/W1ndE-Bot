@@ -3,6 +3,7 @@ const {bot_id, creator_id} = require("../../../cfg.json");
 const calculateLevelXp = require('../../utils/calculateLevelXp');
 const Level = require('../../models/Level');
 const cooldowns = new Set();
+const request = require('request');
 
 function getRandomXp(min, max) {
     min = Math.ceil(min);
@@ -49,6 +50,18 @@ module.exports = async (client, message) => {
 
         if (message.content === 'All right thank you very much <@' + bot_id + '>') {
             message.channel.send('No worries! :)');
+        }
+
+        if (message.mentions.has(bot_id)) {
+            //detects swear words in all messages
+            request(`https://www.purgomalum.com/service/containsprofanity?text=${message.content.toString()}`, (error, response, body) => {
+                if (body === "true") {
+                    //replies with an insult
+                    request(`https://insult.mattbas.org/api/insult`, (err, res, body) => {
+                    message.reply(body);
+                })
+            }
+        })
         }
 
         const level = await Level.findOne(query);
