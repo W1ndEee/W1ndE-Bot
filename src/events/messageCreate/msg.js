@@ -57,7 +57,7 @@ module.exports = async (client, message) => {
             request(`https://www.purgomalum.com/service/containsprofanity?text=${message.content.toString()}`, (error, response, body) => {
                 if (body === "true") {
                     //replies with an insult
-                    request(`https://insult.mattbas.org/api/insult`, (err, res, body) => {
+                    request(`https://evilinsult.com/generate_insult.php`, (err, res, body) => {
                     message.reply(body);
                 })
             }
