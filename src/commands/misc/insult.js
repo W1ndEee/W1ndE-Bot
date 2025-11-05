@@ -8,6 +8,8 @@ module.exports = {
      * @param {Interaction} interaction 
      */
 
+    deleted: true,
+
     callback: async (client, interaction) => {
         const user = interaction.options.getMentionable('user');
 
